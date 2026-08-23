@@ -3,7 +3,7 @@ A phishing tool used to hack others cam (asks for permission)
 
 https://github.com/Xxwill0wprismatic/GODS
 
-download the zip file and extract it using a shell/cli
+download the zip file and extract it using a shell/CLI
 
 send req on discord to ask any questions or report bugs
 
