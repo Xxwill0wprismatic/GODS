@@ -5,8 +5,6 @@ https://github.com/Xxwill0wprismatic/GODS
 
 download the zip file and extract it using a shell/CLI
 
-send friend req on discord to ask any questions or report bugs
+Join discord server to ask any questions or report bugs
 
-username: dexmasta_01719    
-
-id.   : 1515584877959843883
+discord server  :   https://discord.gg/EdhvDhxFJ 
