@@ -1,16 +1,35 @@
-# GODS
-A phishing tool used to hack others cam (asks for permission)
+GODS
+
+GODS is a open source and a OSINT tool made for educational purposes and pentesting
+
+GitHub repo:
 
 https://github.com/Xxwill0wprismatic/GODS
 
-download the zip file and extract it using a shell/CLI
+#HOW TO INSTALL GODS
 
-Join discord server to ask any questions or report bugs
+either download the raw zip file without extracting it move it to a shell or a CLI and extract it there or download the zip file directly from a shell and use it.
 
-discord server  :   https://discord.gg/EdhvDhxFJ 
+use the help command of ur stuck 🥀
 
-(IMPORTANT DISCLAIMER!!!)
+"./GODS -h"
 
-(I AM NOT RESPONSIBLE IF ANYTHING HAPPENS USE THIS TOOL AT YOUR OWN RISK!
+so there's also a couple of commands and wer planning to add more features 
 
-THIS TOOL WAS CREATED STRICTLY FOR EDUCATIONAL PURPOSES AND SECURITY PENTESTING TO SEE HOW HACKERS SCAM PEOPLE AND THIS TOOL HAS BEEN LICENSED UNDER MIT ICENSE SO U CAN TAMPER ANYTHING U WANT)
+GODS only works on a shell or a CLI
+
+ask any questions or report bugs and issues and recommend new features at discord server 
+
+Discord server:
+https://discord.gg/EdhvDhxFJ
+
+
+IMPORTANT DISCLAIMER!!!
+
+I AM NOT RESPONSIBLE IF ANYTHING HAPPENS WRONG BRUH
+
+THIS TOOL WAS CREATED FOR EDUCATIONAL PURPOSES AND AUTHORIZED SECURITY PENTESTING
+
+GODS IS LICENSED UNDER THE MIT LICENSE SO YOU ARE ALLOWED TO MODIFY AND TAMPER WITH THE CODE ACCORDING TO THE LICENSE TERMS
+
+USE IT RESPONSIBLY AND AT YOUR OWN RISK
