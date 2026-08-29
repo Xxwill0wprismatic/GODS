@@ -12,7 +12,7 @@ either download the raw zip file without extracting it move it to a shell or a C
 
 use the help command of ur stuck 🥀
 
-"./GODS -h"
+./GODS -h
 
 so there's also a couple of commands and wer planning to add more features 
 
