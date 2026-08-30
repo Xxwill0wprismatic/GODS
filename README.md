@@ -1,4 +1,4 @@
-# GODS
+# GODS version v8.51E
 
 GODS is a open source and a OSINT tool made for educational purposes and pentesting
 
