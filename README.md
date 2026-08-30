@@ -1,4 +1,4 @@
-#GODS
+# GODS
 
 GODS is a open source and a OSINT tool made for educational purposes and pentesting
 
@@ -24,7 +24,7 @@ Discord server:
 https://discord.gg/EdhvDhxFJ
 
 
-#IMPORTANT DISCLAIMER!!!
+# IMPORTANT DISCLAIMER!!!
 
 I AM NOT RESPONSIBLE IF ANYTHING HAPPENS WRONG BRUH
 
