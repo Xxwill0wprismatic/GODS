@@ -25,7 +25,11 @@ https://discord.gg/EdhvDhxFJ
 
 # Gods usage
 
-Gods is used to steal the photos of others by creating a link and if someone clicks the link from the remote host and allows permission it takes a couple of photos and send it to you this isn't that powerful btw
+GODS v8.51E is a Linux/terminal-based reconnaissance framework that coordinates multiple security-reconnaissance modules and external security tools
+
+in simple words
+
+Gods is used to steal the photos of others by creating a link and if someone clicks the link from the remote host and allows permission it takes a couple of photos and send it to you this isn't that powerful btw and I added a whole recon engine with a orchestrater it supports 30 external tools and join discord server if u don't know how to use it
 
 
 # IMPORTANT DISCLAIMER
