@@ -8,7 +8,35 @@ https://github.com/Xxwill0wprismatic/GODS
 
 # HOW TO INSTALL GODS
 
-either download the raw zip file without extracting it move it to a shell or a CLI and extract it there or download the zip file directly from a shell and use it.
+either download the raw zip file without extracting it move it to a shell or a CLI and extract it there or download the zip file directly from a shell and use it
+
+or here's the full tutorial 
+first clone the repo
+``` git clone https://github.com/Xxwill0wprismatic/GODS.git```
+
+then extract the file
+
+``` unzip GODS.zip```
+
+then u will see a directory called God enter it
+
+``` cd GOD ```
+
+and u will see the mit license and a another directory called GODS enter it again
+
+```cd GODS```
+
+then u will see a bunch of stuff but give permission to the open source tool/make it executable 
+
+after that process start the tool either recon engine or advanced camera phishing 
+
+## For camera phishing 
+
+```bash gods.sh```
+
+## For reconnaissance engine 
+
+```bash gods.sh recon```
 
 use the help command of ur stuck 🥀
 
