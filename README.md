@@ -60,6 +60,10 @@ in simple words
 Gods is used to steal the photos of others by creating a link and if someone clicks the link from the remote host and allows permission it takes a couple of photos and send it to you this isn't that powerful btw and I added a whole recon engine with a orchestrater it supports 30 external tools and join discord server if u don't know how to use it
 
 
+# LICENSE 
+
+this tool is licensed under mit License 
+
 # IMPORTANT DISCLAIMER
 
  ## I AM NOT RESPONSIBLE IF ANYTHING HAPPENS WRONG BRUH
