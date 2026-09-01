@@ -43,7 +43,7 @@ after that process start the tool either recon engine or advanced camera phishin
 
 use the help command of ur stuck 🥀
 
-```./GODS -h```
+``` bash ./GODS -h```
 
 so there's also a couple of commands and wer planning to add more features 
 
