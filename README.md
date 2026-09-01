@@ -1,5 +1,6 @@
 # GODS version v8.51E
-
+pls star if u like 
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&width=435&lines=Developer+%3A+rabix%24)](https://git.io/typing-svg)
 GODS is a open source and a OSINT tool made for educational purposes and pentesting
 
 GitHub repo:
