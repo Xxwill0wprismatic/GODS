@@ -1,0 +1,3 @@
+all photos are arrive at this directory
+$ mv *.png /sdcard/Pictures/
+

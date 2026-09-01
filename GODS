@@ -1,0 +1,117 @@
+#!/bin/bash
+
+GODS_DIR="$(cd "$(dirname "$0")" && pwd)"
+VERSION="GODS v8.51E"
+
+case "$1" in
+
+    -h|--help)
+        bash "$GODS_DIR/help"
+        ;;
+
+    -v|--version)
+        echo "$VERSION"
+        ;;
+
+    bash)
+        if [ "$2" = "gods.sh" ]; then
+            bash "$GODS_DIR/gods.sh"
+        else
+            echo "Usage: GODS bash gods.sh"
+        fi
+        ;;
+
+    install)
+        echo "[*] Installing Node.js dependencies..."
+        if command -v npm >/dev/null 2>&1; then
+            cd "$GODS_DIR"
+            npm install
+            echo "[+] Dependencies installed."
+        else
+            echo "[!] npm is not installed."
+            echo "[*] Install Node.js first."
+        fi
+        ;;
+
+    update)
+        if [ -d "$GODS_DIR/.git" ]; then
+            echo "[*] Updating GODS..."
+            git -C "$GODS_DIR" pull
+        else
+            echo "[!] This GODS folder is not a Git repository."
+        fi
+        ;;
+
+    status)
+        echo "GODS Status"
+        echo "-----------"
+        echo "Version: $VERSION"
+        echo "Directory: $GODS_DIR"
+
+        [ -f "$GODS_DIR/gods.sh" ] && \
+            echo "gods.sh: OK" || echo "gods.sh: MISSING"
+
+        [ -f "$GODS_DIR/package.json" ] && \
+            echo "package.json: OK" || echo "package.json: MISSING"
+
+        [ -d "$GODS_DIR/node_modules" ] && \
+            echo "node_modules: OK" || echo "node_modules: MISSING"
+        ;;
+
+    info)
+        echo "╔══════════════════════════════╗"
+        echo "║             GODS             ║"
+        echo "╚══════════════════════════════╝"
+        echo
+        echo "Version : $VERSION"
+        echo "Path    : $GODS_DIR"
+        echo "Shell   : $SHELL"
+        ;;
+
+    check)
+        echo "[*] Checking dependencies..."
+        echo
+
+        for command in bash node npm git curl; do
+            if command -v "$command" >/dev/null 2>&1; then
+                echo "[+] $command: OK"
+            else
+                echo "[-] $command: MISSING"
+            fi
+        done
+        ;;
+
+    config)
+        CONFIG="$GODS_DIR/gods.conf"
+
+        if [ ! -f "$CONFIG" ]; then
+            printf '# GODS configuration\nVERSION=%s\n' "$VERSION" > "$CONFIG"
+            echo "[+] Created gods.conf"
+        fi
+
+        if command -v nano >/dev/null 2>&1; then
+            nano "$CONFIG"
+        else
+            cat "$CONFIG"
+        fi
+        ;;
+
+    clear)
+        clear
+        ;;
+
+    exit)
+        exit 0
+        ;;
+
+    "")
+        bash "$GODS_DIR/gods.sh"
+        ;;
+
+    *)
+        echo "GODS: Unknown command: $1"
+        echo "Run 'GODS --help' for available commands."
+        exit 1
+        ;;
+
+esac
