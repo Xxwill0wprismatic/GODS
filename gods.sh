@@ -44,7 +44,11 @@ EOF
 install_dependencies() {
     echo -e "${YELLOW}[+] Checking dependencies...${RESET}"
 
-    # Detect package manager
+    # Get the script's directory for Python dependency installation
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    cd "$SCRIPT_DIR" || { echo -e "${RED}[-] Cannot access GODS directory!${RESET}"; return 1; }
+
+    # Detect package manager (for system packages)
     if command -v apt-get &>/dev/null; then
         PKG_INSTALL="sudo apt-get install -y"
         UPDATE_CMD="sudo apt-get update"
@@ -57,64 +61,77 @@ install_dependencies() {
     elif command -v pacman &>/dev/null; then
         PKG_INSTALL="sudo pacman -S --noconfirm"
         UPDATE_CMD="sudo pacman -Syu"
+    elif command -v pkg &>/dev/null; then
+        # Termux detected
+        PKG_INSTALL="pkg install -y"
+        UPDATE_CMD="pkg update"
     else
-        echo -e "${RED}[-] No supported package manager found! Please install dependencies manually.${RESET}"
-        return 1
+        echo -e "${RED}[-] No supported package manager found!${RESET}"
+        echo -e "${YELLOW}[!] Will try to continue with available tools...${RESET}"
     fi
 
-    $UPDATE_CMD
+    if [[ -n "$UPDATE_CMD" ]]; then
+        $UPDATE_CMD 2>/dev/null || true
+    fi
 
     if ! command -v node &>/dev/null; then
-        echo -e "${RED}[-] Node.js is not installed! Installing...${RESET}"
-        $PKG_INSTALL nodejs
+        echo -e "${RED}[-] Node.js is not installed!${RESET}"
+        if [[ -n "$PKG_INSTALL" ]]; then
+            $PKG_INSTALL nodejs 2>/dev/null || echo -e "${YELLOW}[!] Could not install Node.js automatically${RESET}"
+        fi
     fi
 
     if ! command -v npm &>/dev/null; then
-        echo -e "${RED}[-] npm is not installed! Installing...${RESET}"
-        $PKG_INSTALL npm
+        echo -e "${RED}[-] npm is not installed!${RESET}"
+        if [[ -n "$PKG_INSTALL" ]]; then
+            $PKG_INSTALL npm 2>/dev/null || echo -e "${YELLOW}[!] Could not install npm automatically${RESET}"
+        fi
     fi
 
     if ! command -v lsof &>/dev/null; then
-        echo -e "${RED} [-] lsof is not installed! Installing...${RESET}"
-        $PKG_INSTALL lsof
+        echo -e "${YELLOW}[!] lsof is not installed (optional for server monitoring)${RESET}"
+        if [[ -n "$PKG_INSTALL" ]]; then
+            $PKG_INSTALL lsof 2>/dev/null || true
+        fi
     fi
 
     if ! command -v ssh &>/dev/null; then
-        echo -e "${RED}[-] OpenSSH client is not installed! Installing...${RESET}"
-        $PKG_INSTALL openssh-client || $PKG_INSTALL openssh
+        echo -e "${YELLOW}[!] OpenSSH client is not installed (optional for tunnels)${RESET}"
+        if [[ -n "$PKG_INSTALL" ]]; then
+            $PKG_INSTALL openssh-client 2>/dev/null || $PKG_INSTALL openssh 2>/dev/null || true
+        fi
     fi
 
-    npm list express 2>/dev/null | grep -q "express@" || { 
-        echo -e "${RED}[-] Express.js is not installed! Installing...${RESET}"; 
-        npm install express; 
-    }
-
-    if ! command -v cloudflared &>/dev/null; then
-          echo -e "${RED}[-] Cloudflared is not installed! Installing...${RESET}"
-
-          ARCH=$(uname -m)
-
-          case "$ARCH" in
-              x86_64)
-               URL="https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64"
-               ;;
-              aarch64|arm64)
-               URL="https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64"
-               ;;
-              armv7l|armv6l|armv8l)
-               URL="https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm"
-               ;;
-              *)
-               echo -e "${RED}[-] Unsupported architecture: $ARCH${RESET}"
-               exit 1
-               ;;
-          esac
-
-          sudo wget -q "$URL" -O /usr/local/bin/cloudflared
-          sudo chmod +x /usr/local/bin/cloudflared
+    # Install Python dependencies (required for recon)
+    echo -e "${YELLOW}[+] Checking Python dependencies...${RESET}"
+    if command -v python3 &>/dev/null; then
+        if [[ -f "$SCRIPT_DIR/requirements.txt" ]]; then
+            echo -e "${CYAN}[*] Installing Python packages from requirements.txt...${RESET}"
+            pip3 install -q -r "$SCRIPT_DIR/requirements.txt" 2>/dev/null || {
+                echo -e "${YELLOW}[!] Could not install Python packages automatically${RESET}"
+                echo -e "${YELLOW}[!] You may need to run: pip install -r requirements.txt${RESET}"
+            }
+        else
+            # Try to install dnspython directly
+            pip3 install -q dnspython 2>/dev/null || echo -e "${YELLOW}[!] dnspython not installed (required for DNS recon)${RESET}"
+        fi
+    else
+        echo -e "${RED}[-] Python 3 is not installed!${RESET}"
+        echo -e "${YELLOW}[!] Python is required for GODS Recon${RESET}"
+        if [[ -n "$PKG_INSTALL" ]]; then
+            $PKG_INSTALL python3 2>/dev/null || true
+        fi
     fi
 
-    echo -e "${GREEN}[+] All dependencies are installed!${RESET}"
+    # Install Node.js dependencies
+    if command -v npm &>/dev/null; then
+        if [[ -f "$SCRIPT_DIR/package.json" ]]; then
+            echo -e "${CYAN}[*] Installing Node.js dependencies...${RESET}"
+            npm install 2>/dev/null || echo -e "${YELLOW}[!] Could not install npm packages${RESET}"
+        fi
+    fi
+
+    echo -e "${GREEN}[+] Dependency check complete!${RESET}"
 }
 
 create_needed_files() {
@@ -148,33 +165,27 @@ select_html_file() {
 }
 
 set_permissions() {
-    # Get absolute path of the script
-    SCRIPT_PATH="$(readlink -f "$0")"
+    # Get absolute path of the script (cross-platform compatible)
+    SCRIPT_PATH="${BASH_SOURCE[0]}"
+    if command -v readlink &>/dev/null && [[ -L "$SCRIPT_PATH" ]]; then
+        SCRIPT_PATH="$(readlink -f "$SCRIPT_PATH")"
+    fi
 
-    # Go one level up from script directory to get the main GODS directory
-    SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
-    MAIN_DIR="$(dirname "$SCRIPT_DIR")"
+    # Get the directory containing the script
+    SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_PATH")" && pwd)"
 
-    # Get current user, directory owner and group
-    CURRENT_USER="$(whoami)"
-    DIR_OWNER="$(stat -c '%U' "$MAIN_DIR")"
-    DIR_GROUP="$(stat -c '%G' "$MAIN_DIR")"
-
-    # Fix access if user is not owner and not in group OR cannot write
-    if [[ ! -w "$MAIN_DIR" ]] || ([[ "$CURRENT_USER" != "$DIR_OWNER" ]] && ! id -nG "$CURRENT_USER" | grep -qw "$DIR_GROUP"); then
-
-        if [[ "$EUID" -eq 0 ]]; then
-            # Running as root -> restore ownership to the original user
-            TARGET_USER="${SUDO_USER:-$(logname 2>/dev/null || echo root)}"
-            chown -R "$TARGET_USER":"$TARGET_USER" "$MAIN_DIR" 2>/dev/null
-            chmod -R u+rwx "$MAIN_DIR" 2>/dev/null
-        else
-            # Running as normal user -> grant safe access
-            chmod -R u+rwX "$MAIN_DIR" 2>/dev/null
+    # Check if we can write to the directory
+    if [[ ! -w "$SCRIPT_DIR" ]]; then
+        echo -e "${YELLOW}[!] Directory is not writable: $SCRIPT_DIR${RESET}"
+        echo -e "${YELLOW}[!] Attempting to fix permissions...${RESET}"
+        
+        # Try chmod (may fail without write permission to directory itself)
+        chmod -R u+rwX "$SCRIPT_DIR" 2>/dev/null || true
+        
+        # On Termux, try to fix ownership
+        if [[ -n "$(command -v termux-setup-storage 2>/dev/null)" ]] || [[ -d "/data/data/com.termux" ]]; then
+            echo -e "${CYAN}[*] Termux environment detected${RESET}"
         fi
-
-        # Final fallback if still not writable
-        [[ -w "$MAIN_DIR" ]] || chmod -R 777 "$MAIN_DIR" 2>/dev/null
     fi
 }
 

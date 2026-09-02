@@ -1,0 +1,5 @@
+# GODS Recon Intelligence Engine v8.51E
+# Python dependencies
+
+# Core DNS resolution (required for DNS module)
+dnspython>=2.4.0

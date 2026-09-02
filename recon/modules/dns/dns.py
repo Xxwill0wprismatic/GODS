@@ -2,11 +2,24 @@
 """
 GODS Module: dns
 Tools: dig, host, python fallback using socket/dns.resolver
+
+Dependency: dnspython (for Python-based DNS queries)
+- Installed automatically via requirements.txt
+- Falls back to socket.gethostbyname for basic A record lookups
+- External tools: dig, host (if available)
 """
 import re
 import socket
-import dns.resolver
-import dns.exception
+
+# Try to import dnspython for advanced DNS queries
+try:
+    import dns.resolver
+    import dns.exception
+    DNS_RESOLVER_AVAILABLE = True
+except ImportError:
+    DNS_RESOLVER_AVAILABLE = False
+    dns = None  # type: ignore
+
 from utils.helpers import run_cmd, tool_check, C, log
 from config.settings import TOOLS, TIMEOUTS, DNS_RECORD_TYPES
 
@@ -74,6 +87,9 @@ class DNS:
 
     def _query_with_python(self, rtype):
         """Query DNS using Python's dns.resolver (fallback)."""
+        if not DNS_RESOLVER_AVAILABLE:
+            return self._query_with_socket_fallback(rtype)
+        
         try:
             answers = dns.resolver.resolve(self.target, rtype)
             records = []
@@ -107,6 +123,26 @@ class DNS:
         except Exception as e:
             self.logger.raw("dns", f"python-dns-{rtype}", "", str(e), -1)
             return "", str(e), -1
+
+
+    def _query_with_socket_fallback(self, rtype):
+        """Fallback DNS query using socket when dnspython is not available.
+        
+        Limited to A record only - more advanced queries require dnspython.
+        """
+        self.logger.raw("dns", f"socket-fallback-{rtype}", "", "dnspython not installed, using socket fallback", 0)
+        
+        if rtype == "A":
+            try:
+                ip = socket.gethostbyname(self.target)
+                self.logger.raw("dns", f"socket-A", ip, "", 0)
+                return ip, "", 0
+            except socket.gaierror as e:
+                self.logger.raw("dns", f"socket-A", "", str(e), -1)
+                return "", str(e), -1
+        else:
+            self.logger.raw("dns", f"socket-{rtype}", "", f"{rtype} lookup requires dnspython", -1)
+            return "", f"{rtype} lookup requires dnspython (install: pip install dnspython)", -1
 
     def run(self):
         if not self.options or not self.options.get("record_types"):
