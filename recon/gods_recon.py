@@ -489,12 +489,12 @@ def run_recon(target, modules, opts_dict, outdir="reports", no_report=False):
         reports = reporter.run()
         print()
         log("DONE", "Recon complete.", C.G)
-        log("DONE", f"Reports directory: {logger.outdir}", C.C)
-        log("DONE", f"TXT:  {reports['txt']}", C.C)
-        log("DONE", f"JSON: {reports['json']}", C.C)
-        log("DONE", f"HTML: {reports['html']}", C.C)
+        log("DONE", f"Reports directory: {logger.outdir}", C.CYAN)
+        log("DONE", f"TXT:  {reports['txt']}", C.CYAN)
+        log("DONE", f"JSON: {reports['json']}", C.CYAN)
+        log("DONE", f"HTML: {reports['html']}", C.CYAN)
         if reports.get('html_source'):
-            log("DONE", f"SOURCE: {reports['html_source']}", C.C)
+            log("DONE", f"SOURCE: {reports['html_source']}", C.CYAN)
     else:
         print()
         log("DONE", "Recon complete (reports skipped).", C.G)

@@ -7,7 +7,7 @@ import os
 import tempfile
 import shutil
 from datetime import datetime
-from utils.helpers import C, sev_rank, safe_filename
+from utils.helpers import C, sev_rank, safe_filename, RICH_AVAILABLE, console
 
 # Absolute path to project root (where the recon folder is located)
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -69,11 +69,24 @@ class ReconLogger:
                 return existing
 
         self.findings.append(finding)
-        color = {
-            "CRITICAL": C.R, "HIGH": C.M, "MEDIUM": C.Y,
-            "LOW": C.C, "INFO": C.D
-        }.get(severity.upper(), C.W)
-        print(f"  {color}[{severity.upper():8}]{C.X} {module:12} -> {title}")
+        
+        # Output with rich if available, otherwise use ANSI colors
+        if RICH_AVAILABLE:
+            color_map = {
+                "CRITICAL": "red",
+                "HIGH": "magenta",
+                "MEDIUM": "yellow",
+                "LOW": "cyan",
+                "INFO": "dim",
+            }
+            rich_color = color_map.get(severity.upper(), "white")
+            console.print(f"  [{rich_color}]{severity.upper():8}[/{rich_color}] [cyan]{module:12}[/cyan] -> {title}")
+        else:
+            color = {
+                "CRITICAL": C.R, "HIGH": C.M, "MEDIUM": C.Y,
+                "LOW": C.CYAN, "INFO": C.D
+            }.get(severity.upper(), C.W)
+            print(f"  {color}[{severity.upper():8}]{C.X} {module:12} -> {title}")
 
     def save_raw(self):
         """Save raw log with atomic write (temp file + rename)."""
@@ -110,3 +123,20 @@ class ReconLogger:
                 pass
             raise
         return path
+
+    def get_summary(self):
+        """Return a dict summarizing the scan."""
+        counts = {"CRITICAL": 0, "HIGH": 0, "MEDIUM": 0, "LOW": 0, "INFO": 0}
+        for f in self.findings:
+            sev = f.get("severity", "INFO")
+            counts[sev] = counts.get(sev, 0) + 1
+        return {
+            "target": self.target,
+            "session": self.session_id,
+            "findings": len(self.findings),
+            "severity_counts": counts,
+            "modules_run": self.modules_run,
+            "tools_used": self.tools_used,
+            "tools_skipped": self.tools_skipped,
+            "module_status": self.module_status,
+        }

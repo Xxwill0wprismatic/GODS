@@ -3,3 +3,6 @@
 
 # Core DNS resolution (required for DNS module)
 dnspython>=2.4.0
+
+# Rich terminal output library for enhanced UI
+rich>=13.0.0

@@ -310,11 +310,53 @@ trap stop_server SIGINT
 run_recon() {
     local GODS_DIR
     GODS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    
     if ! command -v python3 >/dev/null 2>&1; then
         echo -e "${RED}[-] Python 3 is required for GODS Recon.${RESET}"
         return 1
     fi
+    
+    # Check and install Python dependencies
+    check_python_deps
+    
     exec python3 "$GODS_DIR/recon/gods_recon.py" "$@"
+}
+
+# Check and install Python dependencies for recon
+check_python_deps() {
+    local missing_deps=()
+    
+    # Check if dnspython is installed
+    if ! python3 -c "import dns.resolver" 2>/dev/null; then
+        missing_deps+=("dnspython")
+    fi
+    
+    # Check if rich is installed
+    if ! python3 -c "import rich" 2>/dev/null; then
+        missing_deps+=("rich")
+    fi
+    
+    # Install missing dependencies
+    if [[ ${#missing_deps[@]} -gt 0 ]]; then
+        echo -e "${YELLOW}"
+        echo "[*] ═══════════════════════════════════════════════════════"
+        echo "[*]  GODS Dependency Manager"
+        echo "[*] ═══════════════════════════════════════════════════════"
+        echo -e "${RESET}"
+        
+        for dep in "${missing_deps[@]}"; do
+            echo -e "${CYAN}[+] Installing ${dep}...${RESET}"
+            if pip3 install -q "$dep" 2>/dev/null; then
+                echo -e "${GREEN}[✓] ${dep} installed successfully${RESET}"
+            else
+                echo -e "${RED}[✗] Failed to install ${dep}${RESET}"
+            fi
+        done
+        
+        echo ""
+        echo -e "${GREEN}[✓] All dependencies ready!${RESET}"
+        echo ""
+    fi
 }
 
 # Handle GODS command-line entries before the legacy interactive flow.
