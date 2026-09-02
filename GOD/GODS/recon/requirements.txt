@@ -1,0 +1,2 @@
+# GODS Recon Python Dependencies
+dnspython>=2.0.0

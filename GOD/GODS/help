@@ -1,0 +1,32 @@
+#!/bin/bash
+
+echo "╔══════════════════════════════════╗"
+echo "║             GODS                 ║"
+echo "║        Command Help Menu         ║"
+echo "╚══════════════════════════════════╝"
+echo
+echo "Usage:"
+echo "  GODS <command>"
+echo
+echo "Commands:"
+echo "  --help              Show this help menu"
+echo "  bash gods.sh        Start GODS"
+echo "  --version           Show version"
+echo "  install             Install dependencies"
+echo "  update              Update GODS"
+echo "  status              Show GODS status"
+echo "  info                Show information about GODS"
+echo "  check               Check dependencies"
+echo "  config              Open GODS configuration"
+echo "  clear               Clear the terminal"
+echo "  exit                Exit GODS"
+echo
+echo "Options:"
+echo "  -h                  Show help"
+echo "  -v                  Show version"
+echo
+echo "Version:"
+echo "  GODS v8.51E"
+echo ""
+echo "Recon:"
+echo "  recon        Start GODS Recon Engine"

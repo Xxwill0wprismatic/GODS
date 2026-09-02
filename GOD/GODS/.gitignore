@@ -1,0 +1,29 @@
+# Reports and output
+reports/
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Node modules
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temp files
+*.tmp
+*.temp
+/tmp/
+
+# OS
+.DS_Store
+Thumbs.db
