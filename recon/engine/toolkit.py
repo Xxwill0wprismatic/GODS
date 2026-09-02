@@ -488,10 +488,264 @@ METASPLOIT_PAYLOADS = {
         "os": "generic", "arch": "x86", "type": "shell", "stageless": True,
         "description": "Generic shell reverse TCP"
     },
+
+    # FreeBSD
+    "freebsd/x64/shell_reverse_tcp": {
+        "os": "freebsd", "arch": "x64", "type": "shell", "stageless": False,
+        "description": "FreeBSD x64 shell reverse TCP"
+    },
+    "freebsd/x64/shell_bind_tcp": {
+        "os": "freebsd", "arch": "x64", "type": "shell", "stageless": False,
+        "description": "FreeBSD x64 shell bind TCP"
+    },
+
+    # Solaris
+    "solaris/x86/shell_reverse_tcp": {
+        "os": "solaris", "arch": "x86", "type": "shell", "stageless": False,
+        "description": "Solaris x86 shell reverse TCP"
+    },
+
+    # AIX
+    "aix/x86/shell_reverse_tcp": {
+        "os": "aix", "arch": "x86", "type": "shell", "stageless": False,
+        "description": "AIX x86 shell reverse TCP"
+    },
+
+    # Linux ARM
+    "linux/armle/shell_reverse_tcp": {
+        "os": "linux", "arch": "armle", "type": "shell", "stageless": False,
+        "description": "Linux ARMLE shell reverse TCP"
+    },
+    "linux/armle/meterpreter/reverse_tcp": {
+        "os": "linux", "arch": "armle", "type": "meterpreter", "stageless": False,
+        "description": "Linux ARMLE Meterpreter reverse TCP"
+    },
+    "linux/armbe/shell_reverse_tcp": {
+        "os": "linux", "arch": "armbe", "type": "shell", "stageless": False,
+        "description": "Linux ARMBE shell reverse TCP"
+    },
+
+    # Linux MIPS
+    "linux/mipsbe/shell_reverse_tcp": {
+        "os": "linux", "arch": "mipsbe", "type": "shell", "stageless": False,
+        "description": "Linux MIPSBE shell reverse TCP"
+    },
+    "linux/mipsbe/meterpreter/reverse_tcp": {
+        "os": "linux", "arch": "mipsbe", "type": "meterpreter", "stageless": False,
+        "description": "Linux MIPSBE Meterpreter reverse TCP"
+    },
+    "linux/mipsle/shell_reverse_tcp": {
+        "os": "linux", "arch": "mipsle", "type": "shell", "stageless": False,
+        "description": "Linux MIPSLE shell reverse TCP"
+    },
+    "linux/mipsle/meterpreter/reverse_tcp": {
+        "os": "linux", "arch": "mipsle", "type": "meterpreter", "stageless": False,
+        "description": "Linux MIPSLE Meterpreter reverse TCP"
+    },
+
+    # Linux PowerPC
+    "linux/ppc/shell_reverse_tcp": {
+        "os": "linux", "arch": "ppc", "type": "shell", "stageless": False,
+        "description": "Linux PowerPC shell reverse TCP"
+    },
+    "linux/ppc64/shell_reverse_tcp": {
+        "os": "linux", "arch": "ppc64", "type": "shell", "stageless": False,
+        "description": "Linux PPC64 shell reverse TCP"
+    },
+
+    # macOS ARM
+    "osx/armle/shell_reverse_tcp": {
+        "os": "macos", "arch": "armle", "type": "shell", "stageless": False,
+        "description": "macOS ARM shell reverse TCP"
+    },
+    "osx/armle/meterpreter/reverse_tcp": {
+        "os": "macos", "arch": "armle", "type": "meterpreter", "stageless": False,
+        "description": "macOS ARM Meterpreter reverse TCP"
+    },
+
+    # Windows Staged
+    "windows/meterpreter/bind_tcp": {
+        "os": "windows", "arch": "x86", "type": "meterpreter", "stageless": False,
+        "description": "Windows Meterpreter bind TCP (staged)"
+    },
+    "windows/meterpreter/reverse_http": {
+        "os": "windows", "arch": "x86", "type": "meterpreter", "stageless": False,
+        "description": "Windows Meterpreter reverse HTTP"
+    },
+    "windows/meterpreter/reverse_https": {
+        "os": "windows", "arch": "x86", "type": "meterpreter", "stageless": False,
+        "description": "Windows Meterpreter reverse HTTPS"
+    },
+    "windows/shell/bind_tcp": {
+        "os": "windows", "arch": "x86", "type": "shell", "stageless": False,
+        "description": "Windows shell bind TCP (staged)"
+    },
+    "windows/x64/meterpreter/bind_tcp": {
+        "os": "windows", "arch": "x64", "type": "meterpreter", "stageless": False,
+        "description": "Windows x64 Meterpreter bind TCP (staged)"
+    },
+    "windows/x64/meterpreter/reverse_http": {
+        "os": "windows", "arch": "x64", "type": "meterpreter", "stageless": False,
+        "description": "Windows x64 Meterpreter reverse HTTP"
+    },
+    "windows/x64/meterpreter/reverse_https": {
+        "os": "windows", "arch": "x64", "type": "meterpreter", "stageless": False,
+        "description": "Windows x64 Meterpreter reverse HTTPS"
+    },
+
+    # PHP stageless
+    "php/meterpreter_reverse_tcp": {
+        "os": "php", "arch": "x86", "type": "meterpreter", "stageless": True,
+        "description": "PHP Meterpreter reverse TCP (stageless)"
+    },
+    "php/shell_reverse_tcp_ipv6": {
+        "os": "php", "arch": "x86", "type": "shell", "stageless": False,
+        "description": "PHP shell reverse TCP over IPv6"
+    },
+
+    # Python stageless
+    "python/shell_reverse_tcp_ssl": {
+        "os": "python", "arch": "x86", "type": "shell", "stageless": False,
+        "description": "Python shell reverse TCP with SSL"
+    },
+    "python/meterpreter_reverse_tcp": {
+        "os": "python", "arch": "x86", "type": "meterpreter", "stageless": True,
+        "description": "Python Meterpreter reverse TCP (stageless)"
+    },
+
+    # Java stageless
+    "java/meterpreter_reverse_tcp": {
+        "os": "java", "arch": "x86", "type": "meterpreter", "stageless": True,
+        "description": "Java Meterpreter reverse TCP (stageless)"
+    },
+
+    # Perl stageless
+    "perl/shell_reverse_tcp_staged": {
+        "os": "perl", "arch": "x86", "type": "shell", "stageless": False,
+        "description": "Perl shell reverse TCP (staged)"
+    },
+
+    # Ruby stageless
+    "ruby/shell_reverse_tcp_staged": {
+        "os": "ruby", "arch": "x86", "type": "shell", "stageless": False,
+        "description": "Ruby shell reverse TCP (staged)"
+    },
+    "ruby/meterpreter_reverse_tcp": {
+        "os": "ruby", "arch": "x86", "type": "meterpreter", "stageless": True,
+        "description": "Ruby Meterpreter reverse TCP (stageless)"
+    },
+
+    # NodeJS
+    "nodejs/shell_reverse_tcp_ssl": {
+        "os": "nodejs", "arch": "x86", "type": "shell", "stageless": False,
+        "description": "NodeJS shell reverse TCP with SSL"
+    },
+    "nodejs/meterpreter_reverse_tcp": {
+        "os": "nodejs", "arch": "x86", "type": "meterpreter", "stageless": True,
+        "description": "NodeJS Meterpreter reverse TCP (stageless)"
+    },
+
+    # Go
+    "go/meterpreter_reverse_tcp": {
+        "os": "go", "arch": "x86", "type": "meterpreter", "stageless": True,
+        "description": "Go Meterpreter reverse TCP (stageless)"
+    },
+    "go/shell_reverse_tcp": {
+        "os": "go", "arch": "x86", "type": "shell", "stageless": False,
+        "description": "Go shell reverse TCP"
+    },
+
+    # .NET
+    "dotnet/shell_reverse_tcp": {
+        "os": "dotnet", "arch": "x86", "type": "shell", "stageless": False,
+        "description": ".NET shell reverse TCP"
+    },
+    "dotnet/meterpreter_reverse_tcp": {
+        "os": "dotnet", "arch": "x86", "type": "meterpreter", "stageless": True,
+        "description": ".NET Meterpreter reverse TCP (stageless)"
+    },
+
+    # Multiplatform
+    "multi/meterpreter_reverse_tcp": {
+        "os": "multi", "arch": "x86", "type": "meterpreter", "stageless": True,
+        "description": "Multi-platform Meterpreter reverse TCP"
+    },
+    "multi/shell_reverse_tcp": {
+        "os": "multi", "arch": "x86", "type": "shell", "stageless": False,
+        "description": "Multi-platform shell reverse TCP"
+    },
+
+    # Android extended
+    "android/meterpreter_reverse_tcp": {
+        "os": "android", "arch": "arm", "type": "meterpreter", "stageless": True,
+        "description": "Android Meterpreter reverse TCP (stageless)"
+    },
+    "android/shell_reverse_tcp": {
+        "os": "android", "arch": "arm", "type": "shell", "stageless": False,
+        "description": "Android shell reverse TCP"
+    },
+
+    # iOS
+    "iphoneos/shell_reverse_tcp": {
+        "os": "ios", "arch": "arm", "type": "shell", "stageless": False,
+        "description": "iOS shell reverse TCP"
+    },
+
+    # Generic new
+    "generic/tcp_reverse": {
+        "os": "generic", "arch": "x86", "type": "generic", "stageless": False,
+        "description": "Generic TCP reverse shell"
+    },
+    "generic/bind_tcp": {
+        "os": "generic", "arch": "x86", "type": "generic", "stageless": False,
+        "description": "Generic bind TCP shell"
+    },
+
+    # BSD variants
+    "bsd/x86/shell_reverse_tcp": {
+        "os": "bsd", "arch": "x86", "type": "shell", "stageless": False,
+        "description": "BSD x86 shell reverse TCP"
+    },
+    "bsd/x64/shell_reverse_tcp": {
+        "os": "bsd", "arch": "x64", "type": "shell", "stageless": False,
+        "description": "BSD x64 shell reverse TCP"
+    },
+
+    # OpenBSD
+    "openbsd/x86/shell_reverse_tcp": {
+        "os": "openbsd", "arch": "x86", "type": "shell", "stageless": False,
+        "description": "OpenBSD x86 shell reverse TCP"
+    },
+    "openbsd/x64/shell_reverse_tcp": {
+        "os": "openbsd", "arch": "x64", "type": "shell", "stageless": False,
+        "description": "OpenBSD x64 shell reverse TCP"
+    },
+
+    # NetBSD
+    "netbsd/x86/shell_reverse_tcp": {
+        "os": "netbsd", "arch": "x86", "type": "shell", "stageless": False,
+        "description": "NetBSD x86 shell reverse TCP"
+    },
+    "netbsd/x64/shell_reverse_tcp": {
+        "os": "netbsd", "arch": "x64", "type": "shell", "stageless": False,
+        "description": "NetBSD x64 shell reverse TCP"
+    },
+
+    # Juniper/Junos
+    "junos/shell_reverse_tcp": {
+        "os": "junos", "arch": "x86", "type": "shell", "stageless": False,
+        "description": "Juniper Junos shell reverse TCP"
+    },
+
+    # HP-UX
+    "hpux/shell_reverse_tcp": {
+        "os": "hpux", "arch": "x86", "type": "shell", "stageless": False,
+        "description": "HP-UX shell reverse TCP"
+    },
 }
 
 
-def search_msf_payloads(query: str, os_filter: str = None, arch_filter: str = None, 
+def search_msf_payloads(query: str = "", os_filter: str = None, arch_filter: str = None, 
                        type_filter: str = None) -> list:
     """
     Search Metasploit payloads by query string and optional filters.
@@ -506,7 +760,7 @@ def search_msf_payloads(query: str, os_filter: str = None, arch_filter: str = No
         List of matching payloads with metadata
     """
     results = []
-    query_lower = query.lower()
+    query_lower = (query or "").lower()
     
     for payload_name, metadata in METASPLOIT_PAYLOADS.items():
         # Check if payload matches query
